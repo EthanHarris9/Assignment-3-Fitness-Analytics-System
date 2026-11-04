@@ -4,8 +4,13 @@ async function readHealthFile(filepath) {
     try {
         const data = await fs.readFile(filepath, 'utf8');
         const healthData = JSON.parse(data);
+
         console.log("Success! Found your health data!");
     
+        console.log('Total Number of Health Entries:', healthData.metrics.length);
+
+        return healthData;
+
     } catch(error) {
         if (error.code === 'ENOENT') {
             console.log('File not found - check the file path');
@@ -18,11 +23,7 @@ async function readHealthFile(filepath) {
         }
         return null;
 
-
     }
-    
-    console.log('Total Number of Health Entries:', healthData.metrics.length);
-
 }
 
 readHealthFile('./data/health-metrics.json');
