@@ -1,10 +1,28 @@
 const fs = require('fs/promises');
 
 async function readHealthFile(filepath) {
-    const data = await fs.readFile(filepath, 'utf8');
-    const healthData = JSON.parse(data);
+    try {
+        const data = await fs.readFile(filepath, 'utf8');
+        const healthData = JSON.parse(data);
+        console.log("Success! Found your health data!");
+    
+    } catch(error) {
+        if (error.code === 'ENOENT') {
+            console.log('File not found - check the file path');
+        } 
+        else if (error.name === 'SyntaxError') {
+            console.log('Invalid JSON! - check the file format');
+        }
+        else {
+            console.log('Unknown error:', error.message);
+        }
+        return null;
 
+
+    }
+    
     console.log('Total Number of Health Entries:', healthData.metrics.length);
+
 }
 
 readHealthFile('./data/health-metrics.json');
