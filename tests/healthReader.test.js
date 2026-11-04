@@ -1,3 +1,4 @@
+// Creating the test file before the tests run
 const path = require('path'); 
 const fs = require('fs/promises'); 
 const { readHealthFile } = require('../healthReader.js');
@@ -17,6 +18,7 @@ beforeAll(async () => {
     await fs.writeFile(TEST_FILE, JSON.stringify(testData)); 
 });
 
+// Deleting the test file when the tests are done
 afterAll(async () => {
     try {
         await fs.unlink(TEST_FILE);
@@ -24,3 +26,4 @@ afterAll(async () => {
         console.log('No file to delete')
     }
 });
+
