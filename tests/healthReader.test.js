@@ -1,7 +1,7 @@
 // Creating the test file before the tests run
 const path = require('path'); 
 const fs = require('fs/promises'); 
-const { readHealthFile } = require('../healthReader.js');
+const { readHealthFile } = require('./healthReader.js');
 
 const TEST_FILE = path.join(__dirname, 'test-health.json'); // Creates a path to the file
 const testData = {
@@ -27,3 +27,27 @@ afterAll(async () => {
     }
 });
 
+// The unit tests for the readHealthFile function
+describe('readHealthFile', () => { 
+    test('reads a valid JSON file', async () => { 
+          const result = await 
+    readHealthFile(TEST_FILE); 
+          expect(result).not.toBeNull(); // prevents .metrics from crashing 
+          expect(result.user).toBe('TestUser');
+          expect(result.metrics).toHaveLength(1); 
+          expect(result.metrics[0].date).toBe('Test date'); 
+    }); 
+
+    test('returns null when the file is missing', async () => { 
+         const result = await
+    readHealthFile('missing.json'); 
+          expect(result).toBeNull(); 
+    }); 
+
+    test('returns null when the file is invalid', async () => { 
+        await fs.writeFile(TEST_FILE, '{ invalid json }');
+         const result = await
+    readHealthFile(TEST_FILE); 
+          expect(result).toBeNull(); 
+    }); 
+});
