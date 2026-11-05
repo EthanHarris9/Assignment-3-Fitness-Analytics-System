@@ -6,7 +6,9 @@ async function readWorkoutData(filepath) {
     return new Promise((resolve, reject) => {
         const results = [];
         
-        fs.createReadStream(filepath)
+        const stream = fs.createReadStream(filepath);
+        
+        stream
             .pipe(csv())
             .on('data', (row) => {
                 results.push(row);
@@ -15,6 +17,10 @@ async function readWorkoutData(filepath) {
                 resolve(results);
             })
             .on('error', (error) => {
+                reject(error);
+            });
+
+        stream.on('error', (error) => {
                 reject(error);
             });
     });
