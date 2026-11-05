@@ -46,5 +46,9 @@ async function processWorkoutFile(filepath) {
         return null
     }
 }
-    
+
+// Calling the function with the filepath
 processWorkoutFile('./data/workouts.csv');
+
+// Export functions for use in other files
+module.exports = { readWorkoutData, processWorkoutFile }
