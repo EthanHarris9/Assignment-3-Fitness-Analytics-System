@@ -29,11 +29,11 @@ async function processWorkoutFile(filepath) {
         for (let i = 0; i < workoutData.length; i++) { 
 
             const workout = workoutData[i]; 
-            totalMinutes += parseFloat(workout.amount); 
+            totalMinutes += parseFloat(workout.duration); 
     }
         console.log('Total Workouts:', totalWorkouts)
         console.log('Total Minutes:', totalMinutes)
-        
+
         return { totalWorkouts, totalMinutes };
 
     // Error Handling
