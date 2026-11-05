@@ -12,3 +12,16 @@ const testCsvData = `date,exercise,duration,calories
 
 const emptyCsvData = `date,exercise,duration,calories`;
 
+beforeAll(async () => {
+    // Create test files before running tests
+    fs.writeFileSync(TEST_CSV_FILE, testCsvData);
+});
+
+afterAll(async () => {
+    // Clean up test files after tests complete
+    try {
+        fs.unlinkSync(TEST_CSV_FILE);
+    } catch {
+        console.log('No file to delete')
+    }
+});
