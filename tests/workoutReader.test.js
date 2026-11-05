@@ -25,3 +25,36 @@ afterAll(async () => {
         console.log('No file to delete')
     }
 });
+
+// The unit tests for the readWorkoutData and processWorkoutFile functions
+describe('CSV Workout File Processing', () => { 
+    test('reads and processes a valid CSV file', async () => { 
+        const result = await 
+    processWorkoutFile(TEST_CSV_FILE); 
+        expect(result).not.toBeNull(); 
+        expect(result.totalWorkouts).toBe(3); 
+        expect(result.totalMinutes).toBe(100); 
+  }); 
+
+    test('readWorkoutData returns the correct data structure', async () => { 
+        const data = await 
+    readWorkoutData(TEST_CSV_FILE); 
+        expect(Array.isArray(data)).toBe(true);
+        expect(data).toHaveLength(3); 
+        expect(data[0]).toHaveProperty('date'); 
+        expect(data[0]).toHaveProperty('exercise'); 
+        expect(data[0]).toHaveProperty('duration'); 
+    }); 
+
+    test('handles a missing csv file', async () => { 
+        const result = await 
+    processWorkoutFile('missing.csv'); 
+        expect(result).toBeNull(); 
+    });
+
+     test('handles an empty csv file', async () => { 
+        const result = await 
+    processWorkoutFile('emptyCsvData'); 
+        expect(result).toBeNull(); 
+    });
+});
