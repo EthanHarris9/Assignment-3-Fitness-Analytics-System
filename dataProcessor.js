@@ -22,14 +22,29 @@ async function readWorkoutData(filepath) {
 
 // Function to count the total number of workouts and calculates total workout minutes
 async function processWorkoutFile(filepath) {
-      const workoutData = await readWorkoutData(filepath); 
-    let totalWorkouts = workoutData.length; 
-    let totalMinutes = 0; 
-    for (let i = 0; i < workoutData.length; i++) { 
-        const workout = workoutData[i]; 
-        totalMinutes += parseFloat(workout.amount); 
-    }
-    return { totalWorkouts, totalMinutes };
-}
+    try {
+        const workoutData = await readWorkoutData(filepath); 
+        let totalWorkouts = workoutData.length; 
+        let totalMinutes = 0; 
+        for (let i = 0; i < workoutData.length; i++) { 
 
+            const workout = workoutData[i]; 
+            totalMinutes += parseFloat(workout.amount); 
+    }
+        console.log('Total Workouts:', totalWorkouts)
+        console.log('Total Minutes:', totalMinutes)
+        
+        return { totalWorkouts, totalMinutes };
+
+    // Error Handling
+    } catch(error) {
+        if (error.code === 'ENOENT') {
+            console.log('CSV file not found - check the file path');
+        } else {
+            console.log('Error processing CSV file:', error.message);
+        }
+        return null
+    }
+}
+    
 processWorkoutFile('./data/workouts.csv');
