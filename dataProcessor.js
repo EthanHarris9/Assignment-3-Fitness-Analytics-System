@@ -1,3 +1,4 @@
+// Reading the csv workouts file using csv-parser
 const fs = require('fs');
 const csv = require('csv-parser');
 
@@ -18,3 +19,17 @@ async function readWorkoutData(filepath) {
             });
     });
 }
+
+// Function to count the total number of workouts and calculates total workout minutes
+async function processWorkoutFile(filepath) {
+      const workoutData = await readWorkoutData(filepath); 
+    let totalWorkouts = workoutData.length; 
+    let totalMinutes = 0; 
+    for (let i = 0; i < workoutData.length; i++) { 
+        const workout = workoutData[i]; 
+        totalMinutes += parseFloat(workout.amount); 
+    }
+    return { totalWorkouts, totalMinutes };
+}
+
+processWorkoutFile('./data/workouts.csv');
