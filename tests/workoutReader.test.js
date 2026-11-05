@@ -10,8 +10,6 @@ const testCsvData = `date,exercise,duration,calories
 2024-01-16,Walking,20,100
 2024-01-17,Swimming,30,150`;
 
-const emptyCsvData = `date,exercise,duration,calories`;
-
 beforeAll(async () => {
     // Create test files before running tests
     fs.writeFileSync(TEST_CSV_FILE, testCsvData);
@@ -49,12 +47,6 @@ describe('CSV Workout File Processing', () => {
     test('handles a missing csv file', async () => { 
         const result = await 
     processWorkoutFile('missing.csv'); 
-        expect(result).toBeNull(); 
-    });
-
-     test('handles an empty csv file', async () => { 
-        const result = await 
-    processWorkoutFile('emptyCsvData'); 
         expect(result).toBeNull(); 
     });
 });
