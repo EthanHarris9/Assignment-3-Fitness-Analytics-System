@@ -15,7 +15,7 @@ async function main() {
         const healthData = await readHealthFile('./data/health-metrics.json');
 
         // Display username value from .env
-        console.log(`Welcome, processing data for: ${userName}` );
+        console.log(`Welcome. Processing data for: ${userName}` );
 
         // Display workout data summary
         if (workoutData !== null) {
@@ -36,7 +36,7 @@ async function main() {
             console.log(`Weekly Goal: ${weeklyGoal} minutes`);
 
             if (workoutData.totalMinutes >= weeklyGoal) {
-                console.log('Congratulations! You have met your weekly workout goal!');
+                console.log(`Congratulations ${userName}! You have met your weekly workout goal!`);
             } else {
                 console.log('You have not met your weekly workout goal yet.');
                 console.log('Minutes remaining:', weeklyGoal - workoutData.totalMinutes);
