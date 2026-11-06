@@ -7,7 +7,7 @@ async function readWorkoutData(filepath) {
         const results = [];
         
         const stream = fs.createReadStream(filepath);
-        
+
         stream
             .pipe(csv())
             .on('data', (row) => {
@@ -37,9 +37,6 @@ async function processWorkoutFile(filepath) {
             const workout = workoutData[i]; 
             totalMinutes += parseFloat(workout.duration); 
     }
-        console.log('Total Workouts:', totalWorkouts)
-        console.log('Total Minutes:', totalMinutes)
-
         return { totalWorkouts, totalMinutes };
 
     // Error Handling

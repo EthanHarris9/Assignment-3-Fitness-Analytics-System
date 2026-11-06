@@ -6,10 +6,6 @@ async function readHealthFile(filepath) {
         const data = await fs.readFile(filepath, 'utf8');
         const healthData = JSON.parse(data);
 
-        console.log("Success! Found your health data!");
-    
-        console.log('Total Number of Health Entries:', healthData.metrics.length);
-
         return healthData;
 
     // Error handling
